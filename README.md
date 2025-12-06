@@ -7,13 +7,12 @@ Aplicação web de ciência de dados para identificação automática de espéci
 O MelodIA recebe arquivos MP3/WAV contendo vocalizações de aves, extrai embeddings especializadas usando o modelo BirdNET (via birdnetlib) e utiliza um modelo k‑NN treinado em dados do Xeno‑Canto para prever as espécies mais prováveis, retornando o top‑5 com escores de confiança. O objetivo é oferecer uma ferramenta simples e interpretável para experimentos de bioacústica e monitoramento de biodiversidade.​
 
 ---
-Devido ao seu tamanho final superior 100 MB, ele não pôde ser hospedado diretamente neste repositório GitHub.
 
-Você pode baixá-lo através do link abaixo:
+# Download arquivos no link abaixo:
 
 [Clique aqui para acessar arquivos no Google Drive](https://drive.google.com/drive/folders/1zthTp8BoSVZsOonrc9ZSqdFkkdAtFTQr?usp=sharing)
 
-# Aplicação 
+# Aplicação Web:
 [Clique aqui para acesso on-line da Aplicação](https://melod-ia.interativoti.app/)
 
 ---
