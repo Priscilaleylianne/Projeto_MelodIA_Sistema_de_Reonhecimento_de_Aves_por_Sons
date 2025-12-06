@@ -22,10 +22,10 @@ O MelodIA recebe arquivos MP3/WAV contendo vocalizações de aves, extrai embedd
 O **MelodIA** é um sistema de **classificação automática de aves por meio de gravações de áudio**.
 Ele utiliza:
 
-* **BirdNET** para extração de *embeddings* especializados em bioacústica
-* **k-Nearest Neighbors (k-NN)** para classificação
-* **FastAPI** para servir o modelo via interface Web
-* **Xeno-Canto** como base de dados de referência
+* **BirdNET** para extração de *embeddings* especializados em bioacústica.
+* **k-Nearest Neighbors (k-NN)** para classificação.
+* **FastAPI** para servir o modelo via interface Web.
+* **Xeno-Canto** como base de dados de referência.
 
 O projeto foi desenvolvido como parte da disciplina **Machine Learning Aplicado II**, sob orientação do **Prof. Juan Gabriel Colonna**.
 
@@ -60,11 +60,11 @@ Construir e avaliar um sistema de IA para identificação de aves através de á
 
 ### **Objetivos Específicos**
 
-* Extrair **embeddings bioacústicos** com BirdNET
-* Treinar um classificador KNN para espécies de aves
-* Desenvolver uma API web com FastAPI
-* Criar uma interface simples para upload de áudio
-* Avaliar métricas de desempenho e discutir limitações
+* Extrair **embeddings bioacústicos** com BirdNET;
+* Treinar um classificador KNN para espécies de aves;
+* Desenvolver uma API web com FastAPI;
+* Criar uma interface simples para upload de áudio;
+* Avaliar métricas de desempenho e discutir limitações.
 
 ---
 
@@ -111,9 +111,9 @@ Projeto_MelodIA/
 
 O projeto utiliza gravações do repositório **Xeno-Canto**:
 
-* +700.000 gravações
-* ~10.000 espécies
-* Metadados completos (localização, datas, qualidade)
+* +700.000 gravações.
+* ~10.000 espécies.
+* Metadados completos (localização, datas, qualidade).
 
 As gravações são **segmentadas** e enviadas ao **BirdNET**, que retorna vetores numéricos (embeddings 1024-d).
 
@@ -217,15 +217,15 @@ Retorno esperado:
 
 ### **Abordagem clássica (MFCC + SVM)**
 
-* Otimizada para *voz humana*
-* Baixo desempenho em cantos de aves
-* 20–50% de acurácia no Xeno-Canto
+* Otimizada para *voz humana*.
+* Baixo desempenho em cantos de aves.
+* 20–50% de acurácia no Xeno-Canto.
 
 ### **Abordagem final (BirdNET + KNN)**
 
-* Embeddings aprendidos com milhões de gravações
-* Muito menos dependente de grande volume de dados locais
-* Desempenho **significativamente superior**
+* Embeddings aprendidos com milhões de gravações.
+* Muito menos dependente de grande volume de dados locais.
+* Desempenho **significativamente superior**.
 
 | Abordagem     | Tipo de Feature           | Desempenho | Observações                               |
 | ------------- | ------------------------- | ---------- | ----------------------------------------- |
@@ -236,22 +236,22 @@ Retorno esperado:
 
 # **Limitações**
 
-* Dataset extremamente desbalanceado (Xeno-Canto)
-* Dependência de qualidade da gravação
-* Ruídos ambientais podem confundir o modelo
-* BirdNET não cobre 100% das espécies amazônicas
-* KNN exige boa organização das embeddings no espaço vetorial
+* Dataset extremamente desbalanceado (Xeno-Canto);
+* Dependência de qualidade da gravação;
+* Ruídos ambientais podem confundir o modelo;
+* BirdNET não cobre 100% das espécies amazônicas;
+* KNN exige boa organização das embeddings no espaço vetorial.
 
 ---
 
 # **Trabalhos Futuros**
 
-* Incorporar CNNs finamente ajustadas (fine-tuning)
-* Expansão com gravações locais próprias
-* Redução de ruído em pré-processamento
-* Modelo híbrido (BirdNET + SVM ou Random Forest)
-* Dashboard com gráficos e espectrogramas
-* API autenticada para produção
+* Incorporar CNNs finamente ajustadas (fine-tuning).
+* Expansão com gravações locais próprias.
+* Redução de ruído em pré-processamento.
+* Modelo híbrido (BirdNET + SVM ou Random Forest).
+* Dashboard com gráficos e espectrogramas.
+* API autenticada para produção.
 
 ---
 
