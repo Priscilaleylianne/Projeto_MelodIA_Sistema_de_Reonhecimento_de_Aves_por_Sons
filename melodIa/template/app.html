@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8" />
+    <title>MelodIA (BirdNET + KNN)</title>
+    <link rel="stylesheet" href="/static/css/style.css" />
+    <!-- Chart.js para o gráfico -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="melodia-wrapper">
+        <div class="melodia-card">
+            <!-- Cabeçalho -->
+            <header class="melodia-header">
+                <h1 class="melodia-title">Melod-<span style="color:#e85d04">IA</span> (BirdNET + KNN)</h1>
+                <p class="melodia-subtitle">
+                    Reconhecimento de Sonoro.
+                </p>
+            </header>
+
+            <!-- Linha topo: imagem + resultado -->
+            <section class="melodia-top">
+                <div class="melodia-image-box">
+                    <img src="/static/image/passarinho.jpg" alt="Pássaro" class="melodia-image" />
+                </div>
+                <div class="melodia-result-box">
+                    <div class="melodia-badge">
+                        <span class="melodia-badge-dot"></span>
+                        Resultado
+                    </div>
+                    <div id="speciesName" class="melodia-species">Aguardando áudio...</div>
+                    <div id="confidenceText" class="melodia-confidence">
+                        Envie um arquivo MP3/WAV para começar.
+                    </div>
+                </div>
+            </section>
+
+            <!-- Player de áudio -->
+            <section class="melodia-audio">
+                <label class="melodia-section-title">Áudio enviado</label>
+                <audio id="audioPlayer" controls class="melodia-audio-player">
+                    <source id="audioSource" src="" type="audio/mpeg" />
+                    Seu navegador não suporta áudio HTML5.
+                </audio>
+            </section>
+
+            <!-- Gráfico -->
+            <section class="melodia-chart">
+                <label class="melodia-section-title">Confiança</label>
+                <canvas id="confidenceChart" height="100"></canvas>
+            </section>
+
+            <!-- Rodapé: upload + limpar -->
+            <section class="melodia-footer">
+                <div class="melodia-upload">
+                    <label for="audioInput" class="melodia-upload-label">
+                        Enviar áudio (MP3/WAV)
+                    </label>
+                    <input id="audioInput" type="file" accept=".mp3,.wav" />
+                </div>
+                <button id="clearBtn" class="melodia-clear-btn">Limpar</button>
+            </section>
+        </div>
+    </div>
+
+    <script>
+        const audioInput = document.getElementById("audioInput");
+        const speciesNameEl = document.getElementById("speciesName");
+        const confidenceTextEl = document.getElementById("confidenceText");
+        const audioPlayer = document.getElementById("audioPlayer");
+        const audioSource = document.getElementById("audioSource");
+        const clearBtn = document.getElementById("clearBtn");
+
+        let chart = null;
+
+        function resetUI() {
+            speciesNameEl.textContent = "Aguardando áudio...";
+            confidenceTextEl.textContent = "Envie um arquivo MP3/WAV para começar.";
+            audioSource.src = "";
+            audioPlayer.load();
+
+            if (chart) {
+                chart.data.labels = [];
+                chart.data.datasets[0].data = [];
+                chart.update();
+            }
+        }
+
+        async function sendAudio(file) {
+            const formData = new FormData();
+            formData.append("file", file);
+
+            speciesNameEl.textContent = "Processando áudio...";
+            confidenceTextEl.textContent = "Aguarde, extraindo embeddings e classificando.";
+
+            try {
+                const resp = await fetch("/predict", {
+                    method: "POST",
+                    body: formData
+                });
+
+                const data = await resp.json();
+
+                if (!data.ok) {
+                    speciesNameEl.textContent = "Erro";
+                    confidenceTextEl.textContent = data.message || "Falha na classificação.";
+                    return;
+                }
+
+                // Atualiza texto
+                speciesNameEl.textContent = data.species_main;
+                const confPercent = (data.confidence_main * 100).toFixed(2);
+                confidenceTextEl.textContent = "Confiabilidade aproximada: " + confPercent + "%";
+
+                // Atualiza player
+                audioSource.src = data.audio_url;
+                audioPlayer.load();
+
+                // Atualiza gráfico
+                const labels = data.labels;
+                const scores = data.scores.map(v => Number(v));
+
+                if (!chart) {
+                    const ctx = document.getElementById("confidenceChart").getContext("2d");
+                    chart = new Chart(ctx, {
+                        type: "bar",
+                        data: {
+                            labels: labels,
+                            datasets: [{
+                                label: "Probabilidade",
+                                data: scores,
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            scales: {
+                                y: {
+                                    min: 0,
+                                    max: 1,
+                                    ticks: {
+                                        callback: function(value) {
+                                            return Math.round(value * 100) + "%";
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    });
+                } else {
+                    chart.data.labels = labels;
+                    chart.data.datasets[0].data = scores;
+                    chart.update();
+                }
+
+            } catch (err) {
+                console.error(err);
+                speciesNameEl.textContent = "Erro inesperado";
+                confidenceTextEl.textContent = "Verifique o servidor e tente novamente.";
+            }
+        }
+
+        audioInput.addEventListener("change", (ev) => {
+            const file = ev.target.files[0];
+            if (!file) return;
+            resetUI(); // limpa gráfico e player antes
+            sendAudio(file);
+        });
+
+        clearBtn.addEventListener("click", () => {
+            audioInput.value = "";
+            resetUI();
+        });
+
+        // Inicializa gráfico vazio
+        window.addEventListener("load", () => {
+            const ctx = document.getElementById("confidenceChart").getContext("2d");
+            chart = new Chart(ctx, {
+                type: "bar",
+                data: {
+                    labels: [],
+                    datasets: [{
+                        label: "Probabilidade",
+                        data: [],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            min: 0,
+                            max: 1,
+                            ticks: {
+                                callback: function(value) {
+                                    return Math.round(value * 100) + "%";
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>

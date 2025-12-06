@@ -1,0 +1,120 @@
+=== RELATÓRIO KNN BIRDNET (ETAPA 5 - MODO LIMITADO) ===
+
+Total de amostras:  996
+Dimensão dos vetores: 1024
+
+Distribuição de classes:
+Little Tinamou                  103
+Great Tinamou                    61
+Tanzanian Illadopsis             54
+Cinereous Tinamou                45
+Solitary Tinamou                 36
+Delicate Prinia                  34
+White-throated Tinamou           30
+Western Fire-eye                 29
+Grey Tinamou                     28
+White-browed Gnatcatcher         24
+Bornean Black Magpie             23
+Brown Tinamou                    21
+Equatorial Antpitta              20
+Chestnut-capped Warbler          20
+Olivaceous Saltator              19
+Greater Rhea                     18
+Cinnamon-bellied Saltator        16
+Sunda Scimitar Babbler           13
+Blue-winged Leafbird             13
+Malayan Black-capped Babbler     11
+Ornate Pitta                     11
+Yungas Guan                      11
+Short-billed Gull                10
+Black Tinamou                    10
+Arabian Green Bee-eater          10
+Cajamarca Antpitta                9
+Utcubamba Tapaculo                9
+Tawny-breasted Tinamou            9
+North Island Brown Kiwi           9
+Usambiro Barbet                   9
+Arabian Lark                      9
+Loja Tapaculo                     9
+Southern Cassowary                8
+Turkestan Short-toed Lark         8
+Highland Tinamou                  8
+Emu                               8
+Magellanic Snipe                  8
+Tapajos Fire-eye                  7
+Bornean Black-capped Babbler      7
+Siberian House Martin             7
+Chinchipe Spinetail               7
+Sierra Nevada Antpitta            6
+Taiwan Bullfinch                  6
+Brown-tailed Apalis               6
+West Mexican Euphonia             6
+Palawan Crow                      5
+Solomons Robin                    5
+African Green Bee-eater           5
+Visayan Shama                     5
+Stella's Lorikeet                 5
+Ethiopian Bee-eater               5
+Banggai Scops Owl                 5
+Bolivian Antpitta                 5
+Urubamba Antpitta                 5
+Geelvink Fruit Dove               5
+Berlepsch's Tinamou               4
+Black-capped Robin                4
+Wetar Oriole                      4
+Biak Triller                      4
+Hooded Tinamou                    4
+Grey-chinned Sunbird              4
+Atlas Wheatear                    4
+Malabar Imperial Pigeon           4
+Okarito Kiwi                      4
+Sulawesi Leaf Warbler             4
+Common Ostrich                    3
+Arabian Eagle-Owl                 3
+Greyish-crowned Leafbird          3
+Little Spotted Kiwi               3
+Small Crow                        3
+Perija Antpitta                   3
+Seram Bush Warbler                3
+Sumatran Woodpecker               3
+Penan Bulbul                      3
+Banda Sea Pitta                   3
+Geelvink Imperial Pigeon          3
+Ryukyu Green Pigeon               3
+Pale-faced Bulbul                 2
+Lesser Rhea                       2
+Tepui Tinamou                     2
+Okinawa Robin                     2
+Panao Antpitta                    2
+Junin Antpitta                    2
+Dwarf Cassowary                   2
+Ryukyu Flycatcher                 2
+Southern Brown Kiwi               2
+Tanimbar Monarch                  2
+Simeulue Parrot                   2
+Kai Coucal                        2
+Flame-crowned Flowerpecker        1
+Diamantina Sabrewing              1
+West African Batis                1
+Yungas Sparrow                    1
+Calabarzon Babbler                1
+Burmese Collared Dove             1
+Maghreb Wheatear                  1
+Sumba Jungle Flycatcher           1
+Philippine Collared Dove          1
+Southern Sooty Woodpecker         1
+Somali Ostrich                    1
+Bougainville White-eye            1
+Obi Paradise-crow                 1
+Northern Cassowary                1
+Comoros Black Parrot              1
+Black-fronted White-eye           1
+Great Spotted Kiwi                1
+Chachapoya Antpitta               1
+Buru Bush Warbler                 1
+Camiguin Bulbul                   1
+White-faced Plover                1
+
+Observação:
+Poucos dados ou classes muito desbalanceadas.
+Para uma avaliação confiável, gere embeddings para mais gravações.
